@@ -42,7 +42,7 @@ const moveFile = (newFile, oldFile, resetObj) => {
   }
 }
 
-const setPortConfig = (environment, port) => {
+const setPortConfig = (environment, port, ssr) => {
   const settingPath = path.join(rootPth, '.els/config.json')
   createFile(settingPath)
   let config = ''

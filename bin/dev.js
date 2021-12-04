@@ -21,7 +21,13 @@ const run = ({rootPth}) => {
       if (!pro) {
         console.log('找不到该项目')
       } else {
-        webDev({pro})
+        rl.question('1.true\n2.false\n是否ssr项目:', (index) => {
+          if (index === '1') {
+            webDev({pro, isSsr: true})
+          } else {
+            
+          }
+        })
       }
     })
   }
