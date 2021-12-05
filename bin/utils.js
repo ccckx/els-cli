@@ -15,9 +15,12 @@ const createFile = (filePath) => {
   })
 }
 
-const getPort = (configPath) => {
-  const config = require(configPath)
-  let port = config.devServer && config.devServer.port || 8080
+const getPort = ({configPath, clientPort}) => {
+  let config = {}
+  if (configPath) {
+    config = require(configPath)
+  }
+  let port = config.devServer && config.devServer.port || clientPort
   return new Promise((resolve, reject) => {
     portfinder.getPort({port,stopPort: 9999 }, (err, port) => {
       if (port){
