@@ -7,7 +7,7 @@ const port = '<-- port !->'
 const pro = '<-- pro !->'
 let config = {}
 if ('<-- hasConfig !->' === 'true') {
-  const configPath = path.join(path.resolve('./'), `/web/${pro}/client.config.js`)
+  const configPath = path.join(path.resolve('./'), `/web/${pro}/vue.config.js`)
   config = require(configPath)
 }
 const proPublicPath = pro === 'index' ? `./${pro}` : `../${pro}`
@@ -47,7 +47,7 @@ const baseConfig = {
     webpackConfig
       .entry('app')
       .clear()
-      .add(`./.els/pro/${pro}/entry-client.js`)
+      .add(`./web/${pro}/main.js`)
     
     webpackConfig
       .plugin('html')

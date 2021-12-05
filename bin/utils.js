@@ -42,22 +42,19 @@ const moveFile = (newFile, oldFile, resetObj) => {
   }
 }
 
-const setPortConfig = (environment, port, ssr) => {
+const setPortConfig = (environment, port, isSsr = true) => {
   const settingPath = path.join(rootPth, '.els/config.json')
   createFile(settingPath)
   let config = ''
   if (fs.existsSync(settingPath)) {
     const defConfig = require(settingPath)
-    if (defConfig.port) {
-      defConfig.port[environment] = port
-    } else {
-      defConfig.port = {
-        [environment]: port
-      }
+    defConfig[environment] = {
+      port,
+      isSsr
     }
     config = JSON.stringify(defConfig)
   } else {
-    config = `{"port":{"${environment}": ${port}}}`
+    config = `{"${environment}":{"port": ${port},"ssr": ${ssr}}}`
   }
   fs.writeFileSync(settingPath, config)
 }
