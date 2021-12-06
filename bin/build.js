@@ -18,11 +18,17 @@ const run = ({rootPth}) => {
     proList = proInfo.list
     rl.question(selectProStr, (index) => {
       pro = proList[index - 1]
-      rl.close()
       if (!pro) {
         console.log('找不到该项目')
       } else {
-        build({pro})
+        rl.question('1.true\n2.false\n是否ssr项目:', (index) => {
+          rl.close()
+          if (index === '2') {
+            build.spa({pro, isSsr: false})
+          } else {
+            build.ssr({pro, isSsr: true})
+          }
+        })
       }
     })
   }

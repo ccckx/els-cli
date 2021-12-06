@@ -23,9 +23,9 @@ const run = ({rootPth}) => {
         rl.question('1.true\n2.false\n是否ssr项目:', (index) => {
           rl.close()
           if (index === '2') {
-            webDev.webSpaDev({pro, isSsr: false})
+            webDev.spa({pro, isSsr: false})
           } else {
-            webDev.webSsrDev({pro, isSsr: true})
+            webDev.ssr({pro, isSsr: true})
           }
         })
       }
