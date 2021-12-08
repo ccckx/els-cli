@@ -45,14 +45,14 @@ const moveFile = (newFile, oldFile, resetObj) => {
   }
 }
 
-const setPortConfig = (environment, port, isSsr = true) => {
+const setPortConfig = ({environment, port, isSsr = true}) => {
   const settingPath = path.join(rootPth, '.els/config.json')
   createFile(settingPath)
   let config = ''
   if (fs.existsSync(settingPath)) {
     const defConfig = require(settingPath)
     defConfig[environment] = {
-      port,
+      port: port || (defConfig[environment] && defConfig[environment].port) || '8080',
       isSsr
     }
     config = JSON.stringify(defConfig)
@@ -79,13 +79,13 @@ const getProList = ({proPath, rl, name}) => {
   }
 }
  
-const setEntryFile = (pro, port = '8080') => {
+const setEntryFile = ({pro, port = '8080'}) => {
   const formEntryPath = path.join(__dirname, '../entry')
   const toEntryPath = path.join(rootPth, '.els/pro')
   fs.readdirSync(formEntryPath).forEach(item => {
     const outPath = `${toEntryPath}\\${pro}\\${item}`
     createFile(outPath)
-    moveFile(outPath, `${formEntryPath}/${item}`, {port: port, pro})
+    moveFile(outPath, `${formEntryPath}/${item}`, {port, pro})
   })
 }
 
