@@ -20,7 +20,7 @@ const getPort = ({configPath, clientPort}) => {
   if (configPath) {
     config = require(configPath)
   }
-  let port = config.devServer && config.devServer.port || clientPort
+  let port = config.devServer && config.devServer.port || clientPort || '8080'
   return new Promise((resolve, reject) => {
     portfinder.getPort({port,stopPort: 9999 }, (err, port) => {
       if (port){
@@ -45,19 +45,20 @@ const moveFile = (newFile, oldFile, resetObj) => {
   }
 }
 
-const setPortConfig = ({environment, port, isSsr = true}) => {
+const setPortConfig = ({pro, port, isSsr = true, isAdd}) => {
   const settingPath = path.join(rootPth, '.els/config.json')
   createFile(settingPath)
   let config = ''
-  if (fs.existsSync(settingPath)) {
+  if (fs.existsSync(settingPath) && isAdd) {
     const defConfig = require(settingPath)
-    defConfig[environment] = {
-      port: port || (defConfig[environment] && defConfig[environment].port) || '8080',
+    defConfig[pro] = {
+      port: port || (defConfig[pro] && defConfig[pro].port) || '8080',
       isSsr
     }
     config = JSON.stringify(defConfig)
   } else {
-    config = `{"${environment}":{"port": ${port},"ssr": ${ssr}}}`
+    const defPort = port || '8080'
+    config = `{"${pro}":{"port": ${defPort},"ssr": ${isSsr}}}`
   }
   fs.writeFileSync(settingPath, config)
 }
