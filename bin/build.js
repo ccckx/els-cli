@@ -1,5 +1,5 @@
 const path = require('path')
-const utils = require('./utils')
+const utils = require('../utils/method')
 const build = require('../lib/build')
 const readline = require('readline');
 const rl = readline.createInterface({
