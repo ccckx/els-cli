@@ -45,22 +45,30 @@ const moveFile = (newFile, oldFile, resetObj) => {
   }
 }
 
-const setPortConfig = ({pro, port, isSsr = true, isAdd}) => {
+const setPortConfig = ({pro, port, isSsr = true, add}) => {
   const settingPath = path.join(rootPth, '.els/config.json')
   createFile(settingPath)
+  const settingPathAll = path.join(rootPth, '.els/proList.json')
+  createFile(settingPathAll)
   let config = ''
-  if (fs.existsSync(settingPath) && isAdd) {
+  let proConfig = {}
+  if (fs.existsSync(settingPath)) {
+    const allConfig = require(settingPathAll)
+    proConfig = allConfig
+  }
+  if (fs.existsSync(settingPath) && add) {
     const defConfig = require(settingPath)
     defConfig[pro] = {
       port: port || (defConfig[pro] && defConfig[pro].port) || '8080',
       isSsr
     }
-    config = JSON.stringify(defConfig)
+    config = defConfig
   } else {
     const defPort = port || '8080'
-    config = `{"${pro}":{"port": ${defPort},"ssr": ${isSsr}}}`
+    config = {[pro]:{port: defPort,ssr: isSsr}}
   }
-  fs.writeFileSync(settingPath, config)
+  fs.writeFileSync(settingPath, JSON.stringify(config))
+  fs.writeFileSync(settingPathAll, JSON.stringify({...proConfig, ...config}))
 }
 
 const getProList = ({proPath, rl, name}) => {

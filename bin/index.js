@@ -1,8 +1,8 @@
 const dev = require('./dev')
-// const devAdd = require('./dev-add')
-// const build = require('./build')
+const devAdd = require('./dev-add')
+const build = require('./build')
 module.exports = {
   dev,
-  // build,
-  // devAdd
+  build,
+  'dev-add': devAdd
 }

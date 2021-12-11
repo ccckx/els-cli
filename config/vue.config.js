@@ -17,7 +17,6 @@ const baseConfig = {
   devServer: {
     historyApiFallback: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    port: 8090,
     onListening: function (devServer) {
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');
@@ -33,7 +32,6 @@ const baseConfig = {
     },
   },
   chainWebpack: webpackConfig => {
-    // 我们需要禁用 cache loader，否则客户端构建版本会从服务端构建版本使用缓存过的组件
     webpackConfig.module.rule('vue').uses.delete('cache-loader')
     webpackConfig.module.rule('js').uses.delete('cache-loader')
     webpackConfig.module.rule('ts').uses.delete('cache-loader')
@@ -43,7 +41,6 @@ const baseConfig = {
     webpackConfig.plugins.delete('progress')
     webpackConfig.plugins.delete('friendly-errors')
 
-    // 将入口指向应用的客户端入口文件
     webpackConfig
       .entry('app')
       .clear()
