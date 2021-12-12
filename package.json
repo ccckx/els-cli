@@ -1,20 +1,21 @@
 {
   "name": "els-cli",
   "version": "1.0.0",
-  "description": "{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}",
+  "author": "ccckx",
+  "description": "SSR mode packaging for Vue",
   "main": "./bin/els-cli.js",
   "bin": {
     "els-cli": "./bin/els-cli.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "keywords": [
+    "vue",
+    "ssr"
+  ],
   "repository": {
     "type": "git",
     "url": "https://gitee.com/ckx-j/els-cli.git"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.15",
     "@vue/cli-plugin-eslint": "^4.5.15",
